@@ -112,29 +112,22 @@ function renderButtons() {
 function renderPrice() {
   // Iteration 4: change the HTML of `<aside class="panel price">`
   let total = basePrice;
-  let domElements = {
-    billing: document.querySelector(".panel.price"),
-    ingredients: document.createElement("ul"),
-    total: document.createElement("strong")
-  }
+  let ingredientBilling = document.querySelector(".panel.price ul")
+
+  ingredientBilling.innerHTML = ""
 
   for (let i in ingredients) {
     if (ingredients[i].state) {
       let ingredientLi = document.createElement("li")
       ingredientLi.innerText = `$${ingredients[i].price} ${ingredients[i].name}`
 
-      domElements.ingredients.appendChild(ingredientLi)
+      ingredientBilling.appendChild(ingredientLi)
 
       total += ingredients[i].price
     }
   }
-  domElements.total.innerText = `$${total}`
 
-  domElements.billing.removeChild(domElements.billing.querySelector("ul"))
-  domElements.billing.removeChild(domElements.billing.querySelector("strong"))
-
-  domElements.billing.appendChild(domElements.ingredients)
-  domElements.billing.appendChild(domElements.total)
+  document.querySelector(".panel.price strong").innerHTML = `$${total}`
 }
 
 renderEverything();
